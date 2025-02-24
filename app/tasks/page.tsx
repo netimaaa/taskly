@@ -1,6 +1,9 @@
+"use client";
 import { CreateIssueTags } from "@/components/create-issue-tags";
 import { IssueLayer } from "@/components/issue-layer";
 import { Tag } from "@/components/tag";
+import { Task } from "@/components/task";
+import { useTaskStore } from "@/states/taskStorage";
 import {
   Book,
   Circle,
@@ -12,8 +15,13 @@ import {
   User,
   WifiHigh
 } from "lucide-react";
+import { useEffect } from "react";
 
 export default function Home() {
+  const tasks = useTaskStore((state) => state.tasks);
+  // useEffect(() => {
+  //   localStorage.clear();
+  // }, []);
   return (
     <div className="h-full w-full">
       <div className="border-b h-[40px] flex items-center px-4 text-sm font-medium justify-between">
@@ -32,17 +40,9 @@ export default function Home() {
           </button>
         </div>
       </div>
-      <div className="px-4 border-b h-[35px] flex justify-between gap-x-4 items-center text-sm font-medium group transition-all duration-200 hover:bg-gray-50">
-        <div className="flex text-zinc-600 transition-all duration-200 group-hover:text-zinc-800 items-center gap-x-4">
-          <Circle size={14} /> Do something smart{" "}
-        </div>
-        <div className="flex items-center gap-x-4 text-xs text-zinc-600">
-          <Tag color={"#ef4444"} title={"Important"} />
-          <Book size={14} />
-          <WifiHigh size={16} />
-          Feb 23
-        </div>
-      </div>
+      {tasks.map((item, index) => (
+        <Task key={index} item={item} />
+      ))}
     </div>
   );
 }

@@ -1,19 +1,30 @@
+import { LucideProps } from "lucide-react";
 import React from "react";
 
-interface Props {
-  className?: string;
-  color: string;
+interface itemTag {
+  icon: React.FC<LucideProps>;
+  color?: string;
   title: string;
 }
 
-export const Tag: React.FC<Props> = ({ className, color, title }) => {
+interface Props {
+  className?: string;
+  item: itemTag;
+  multiple?: number;
+}
+
+export const Tag: React.FC<Props> = ({ className, item, multiple }) => {
+  const ItemIcon = item.icon;
   return (
-    <div className="px-2 py-[2px] rounded-lg border transition-all duration-200 hover:bg-gray-100 cursor-default flex items-center gap-x-2">
-      <div
-        style={{ backgroundColor: color }}
-        className={`w-2 h-2 rounded-full`}
-      />
-      {title}
+    <div className={`flex gap-x-2 items-center text-sm ` + className}>
+      <div className="flex gap-x-2 items-center px-2 py-[2px] transition-all duration-200 hover:bg-gray-50 border rounded-md">
+        <ItemIcon
+          color={item.color}
+          {...(item.color && { fill: item.color })}
+          size={14}
+        />{" "}
+        {item.title} {multiple && multiple > 1 && `+ ${multiple - 1}`}
+      </div>
     </div>
   );
 };

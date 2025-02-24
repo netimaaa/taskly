@@ -3,6 +3,8 @@ import React, { PropsWithChildren, useRef, useState } from "react";
 
 interface ModalProps {
   className?: string;
+  isOpen: boolean;
+  setOpen: (open: boolean) => void;
 }
 
 interface ModalComponent extends React.FC<PropsWithChildren<ModalProps>> {
@@ -10,12 +12,16 @@ interface ModalComponent extends React.FC<PropsWithChildren<ModalProps>> {
   Content: React.FC<PropsWithChildren<{ className?: string }>>;
 }
 
-export const Modal: ModalComponent = ({ className, children }) => {
-  const [modalOpen, setModalOpen] = useState(false);
+export const Modal: ModalComponent = ({
+  className,
+  isOpen,
+  setOpen,
+  children
+}) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
-  const handleOpenModal = () => {
-    setModalOpen(!modalOpen);
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -24,17 +30,17 @@ export const Modal: ModalComponent = ({ className, children }) => {
         if (React.isValidElement(child)) {
           if (child.type === Modal.Trigger) {
             return React.cloneElement(child, {
-              onClick: handleOpenModal
+              onClick: () => setOpen(true)
             } as React.HTMLAttributes<HTMLElement>);
           }
           if (child.type === Modal.Content) {
             return (
               <div
                 ref={modalRef}
-                onClick={handleOpenModal}
+                onClick={handleClose}
                 className={
                   `absolute top-0 left-0 right-0 bottom-0 transition-all duration-500 ${
-                    modalOpen
+                    isOpen
                       ? "opacity-100 bg-black/20 z-20"
                       : "opacity-0 bg-transparent -z-10"
                   } flex items-center justify-center ` + className
@@ -43,7 +49,7 @@ export const Modal: ModalComponent = ({ className, children }) => {
                 <div
                   onClick={(e) => e.stopPropagation()}
                   className={`w-[800px] h-[400px] rounded-md bg-white transition-all duration-100 ${className} ${
-                    modalOpen ? "opacity-100" : "opacity-0"
+                    isOpen ? "opacity-100" : "opacity-0"
                   }`}
                 >
                   {React.cloneElement(child)}
