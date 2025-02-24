@@ -1,6 +1,17 @@
+import { CreateIssueTags } from "@/components/create-issue-tags";
 import { IssueLayer } from "@/components/issue-layer";
 import { Tag } from "@/components/tag";
-import { Book, Circle, Filter, FolderGit, Plus, WifiHigh } from "lucide-react";
+import {
+  Book,
+  Circle,
+  Filter,
+  FolderGit,
+  Plus,
+  Settings,
+  Star,
+  User,
+  WifiHigh
+} from "lucide-react";
 
 export default function Home() {
   return (

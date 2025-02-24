@@ -1,7 +1,17 @@
 "use client";
-import { ChevronUp, PanelsTopLeft, SquarePen } from "lucide-react";
+import {
+  Book,
+  ChevronUp,
+  CircleDashed,
+  PanelsTopLeft,
+  Paperclip,
+  SquarePen,
+  Tag,
+  WifiLow
+} from "lucide-react";
 import React, { useRef, useState } from "react";
 import { Modal } from "./modal";
+import { ModalCreateTask } from "./modal-create-task";
 
 interface Props {
   className?: string;
@@ -30,7 +40,9 @@ export const SidebarAccount: React.FC<Props> = ({ className }) => {
             <SquarePen strokeWidth={1.6} size={18} />
           </button>
         </Modal.Trigger>
-        <Modal.Content>qwe</Modal.Content>
+        <Modal.Content className="px-6 pt-8 pb-6 h-full">
+          <ModalCreateTask />
+        </Modal.Content>
       </Modal>
     </div>
   );
