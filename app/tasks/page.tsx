@@ -1,21 +1,8 @@
 "use client";
-import { CreateIssueTags } from "@/components/create-issue-tags";
 import { IssueLayer } from "@/components/issue-layer";
-import { Tag } from "@/components/tag";
 import { Task } from "@/components/task";
 import { useTaskStore } from "@/states/taskStorage";
-import {
-  Book,
-  Circle,
-  Filter,
-  FolderGit,
-  Plus,
-  Settings,
-  Star,
-  User,
-  WifiHigh
-} from "lucide-react";
-import { useEffect } from "react";
+import { Book, Filter, FolderGit, Plus } from "lucide-react";
 
 export default function Home() {
   const tasks = useTaskStore((state) => state.tasks);
