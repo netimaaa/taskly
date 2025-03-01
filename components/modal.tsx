@@ -1,5 +1,5 @@
 "use client";
-import React, { PropsWithChildren, useRef, useState } from "react";
+import React, { PropsWithChildren, useRef } from "react";
 
 interface ModalProps {
   className?: string;

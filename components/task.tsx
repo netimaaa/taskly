@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const Task: React.FC<Props> = ({ className, item }) => {
-  const { updateTaskProgress, moveTaskToArchive } = useTaskStore();
+  const { updateTaskProgress } = useTaskStore();
   const formatDate = (isoDate: string): string => {
     const date = new Date(isoDate);
     return new Intl.DateTimeFormat("en-GB", {
@@ -21,11 +21,7 @@ export const Task: React.FC<Props> = ({ className, item }) => {
     }).format(date);
   };
   const handleProgressChange = (newProgress: number) => {
-    if (newProgress === 3) {
-      moveTaskToArchive(item.id);
-    } else {
-      updateTaskProgress(item.id, newProgress);
-    }
+    updateTaskProgress(item.id, newProgress);
   };
   return (
     <div className="px-4 cursor-default border-b h-[35px] flex justify-between gap-x-4 items-center text-sm font-medium group transition-all duration-200 hover:bg-gray-50">

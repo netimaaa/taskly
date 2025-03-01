@@ -3,7 +3,6 @@ import { CreateIssueTags } from "./create-issue-tags";
 import { Priority, Progress, Project, Tags } from "./mockData";
 import { Paperclip } from "lucide-react";
 import { useTaskStore } from "@/states/taskStorage";
-import { useArchivedTaskStore } from "@/states/archiveStorage";
 
 interface Props {
   className?: string;
@@ -21,8 +20,6 @@ export const ModalCreateTask: React.FC<Props> = ({ className, onClose }) => {
   const [tagsIndices, setTagsIndices] = useState<number[]>([]);
 
   const addTask = useTaskStore((state) => state.addTask);
-  const archiveTask = useArchivedTaskStore((state) => state.archiveTask);
-  const tasks = useTaskStore();
   const [resetKey, setResetKey] = useState<number>(0);
 
   const resetFields = () => {
@@ -37,29 +34,15 @@ export const ModalCreateTask: React.FC<Props> = ({ className, onClose }) => {
 
   const handleCreate = () => {
     if (!title.trim()) return;
-
-    if (Progress[progressIndex] === Progress[3]) {
-      archiveTask({
-        id: Date.now(),
-        title,
-        description,
-        progress: progressIndex,
-        priority: priorityIndex,
-        project: projectIndex,
-        tags: tagsIndices,
-        createdAt: new Date().toISOString()
-      });
-    } else {
-      addTask({
-        title,
-        description,
-        progress: progressIndex,
-        priority: priorityIndex,
-        project: projectIndex,
-        tags: tagsIndices,
-        createdAt: new Date().toISOString()
-      });
-    }
+    addTask({
+      title,
+      description,
+      progress: progressIndex,
+      priority: priorityIndex,
+      project: projectIndex,
+      tags: tagsIndices,
+      createdAt: new Date().toISOString()
+    });
 
     resetFields();
     onClose();

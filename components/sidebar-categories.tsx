@@ -17,7 +17,7 @@ const categories = [
   { title: "Search", icon: <Search size={20} />, ref: "/inbox" },
   { title: "Inbox", icon: <Inbox size={20} />, ref: "/inbox" },
   { title: "Tasks", icon: <SquareCheck size={20} />, ref: "/tasks" },
-  { title: "Archived", icon: <Package size={20} />, ref: "/inbox" },
+  { title: "Archived", icon: <Package size={20} />, ref: "/archive" },
   { title: "Projects", icon: <Folder size={20} />, ref: "/inbox" }
 ];
 

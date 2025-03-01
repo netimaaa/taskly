@@ -13,9 +13,9 @@ export const IssueLayer: React.FC<Props> = ({
   title
 }) => {
   return (
-    <button className="px-2 py-1 border rounded-md text-xs flex gap-x-2 items-center transition-all duration-300 text-zinc-700 hover:text-zinc-900 hover:bg-gray-100">
+    <div className="px-2 py-1 border rounded-md text-xs flex gap-x-2 items-center transition-all duration-300 text-zinc-700 hover:text-zinc-900 hover:bg-gray-100">
       <Icon size={14} />
       {title}
-    </button>
+    </div>
   );
 };
