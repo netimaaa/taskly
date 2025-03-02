@@ -24,7 +24,7 @@ export const Task: React.FC<Props> = ({ className, item }) => {
     updateTaskProgress(item.id, newProgress);
   };
   return (
-    <div className="px-4 cursor-default border-b h-[35px] flex justify-between gap-x-4 items-center text-sm font-medium group transition-all duration-200 hover:bg-gray-50">
+    <div className="px-4 cursor-default border-b h-[35px] flex justify-between gap-x-4 items-center text-sm font-medium group transition-all duration-500 hover:bg-gray-50">
       <div className="flex text-zinc-600 transition-all duration-200 group-hover:text-zinc-800 items-center gap-x-4">
         <ProgressDropbar
           onChange={handleProgressChange}

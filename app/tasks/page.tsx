@@ -3,7 +3,7 @@ import { IssueLayer } from "@/components/issue-layer";
 import { Task } from "@/components/task";
 import { useTaskStore } from "@/states/taskStorage";
 import { Book, Columns2, Filter, FolderGit, Plus } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const tasks = useTaskStore((state) => state.tasks);
@@ -12,15 +12,17 @@ export default function Home() {
 
   function handleFilterProjects(filter: number) {
     if (activeFilter === filter) {
-      // Если нажата уже активная кнопка, сбрасываем фильтр
       setChangedTasks(tasks);
       setActiveFilter(null);
     } else {
-      // Если нажата другая кнопка, применяем новый фильтр
       setChangedTasks(tasks.filter((item) => item.project === filter));
       setActiveFilter(filter);
     }
   }
+
+  useEffect(() => {
+    setChangedTasks(tasks);
+  }, [tasks]);
 
   return (
     <div className="h-full w-full">
