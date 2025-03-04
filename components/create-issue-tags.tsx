@@ -1,6 +1,6 @@
 "use client";
 import { LucideProps } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface Item {
   icon: React.FC<LucideProps>;
@@ -15,80 +15,56 @@ interface Props {
   isOpen: boolean;
   onToggle: () => void;
   onSelect: (value: number | number[]) => void;
+  initial?: number[];
 }
 
 export const CreateIssueTags: React.FC<Props> = ({
   className,
   items,
-  multipleChoice,
+  multipleChoice = false,
   isOpen,
   onSelect,
-  onToggle
+  onToggle,
+  initial = []
 }) => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [selectedItems, setSelectedItems] = useState<number[]>([]);
-
-  const [firstItem, ...restItems] = items;
+  const [selectedItems, setSelectedItems] = useState<number[]>(initial);
 
   const handleItemClick = (index: number) => {
-    if (multipleChoice) {
-      setSelectedItems((prev) =>
-        prev.includes(index)
+    setSelectedItems((prev) => {
+      let newSelection;
+      if (multipleChoice) {
+        newSelection = prev.includes(index)
           ? prev.filter((i) => i !== index)
-          : [...prev, index]
-      );
-      onSelect(
-        selectedItems.includes(index)
-          ? selectedItems.filter((i) => i !== index)
-          : [...selectedItems, index]
-      );
-    } else {
-      setActiveIndex(index === activeIndex ? 0 : index);
-      onSelect(index);
-    }
+          : [...prev, index];
+      } else {
+        newSelection = prev.includes(index) ? [] : [index];
+      }
+      setTimeout(() => {
+        onSelect(multipleChoice ? newSelection : newSelection[0] || 0);
+      }, 0);
+      return newSelection;
+    });
   };
 
   const selectedCount = selectedItems.length;
-  const firstSelectedItem = selectedCount > 0 ? items[selectedItems[0]] : null;
+  const firstSelectedItem =
+    selectedCount > 0 ? items[selectedItems[0]] : items[0];
 
   return (
     <div className="relative">
       <div className="flex gap-x-2 items-center text-sm">
-        {multipleChoice ? (
-          <button
-            onClick={onToggle}
-            className="flex gap-x-2 items-center px-2 py-[2px] transition-all duration-200 hover:bg-gray-50 border rounded-md"
-          >
-            {selectedCount > 0 && firstSelectedItem ? (
-              <>
-                <firstSelectedItem.icon
-                  color={firstSelectedItem.color}
-                  fill={firstSelectedItem.color}
-                  size={16}
-                />{" "}
-                {firstSelectedItem.title}
-                {selectedCount > 1 && ` + ${selectedCount - 1}`}
-              </>
-            ) : (
-              <>
-                <firstItem.icon size={16} /> {firstItem.title}
-              </>
-            )}
-          </button>
-        ) : (
-          items.map(
-            (item, index) =>
-              index === activeIndex && (
-                <button
-                  onClick={onToggle}
-                  key={index}
-                  className="flex gap-x-2 items-center px-2 py-[2px] transition-all duration-200 hover:bg-gray-50 border rounded-md"
-                >
-                  <item.icon size={16} /> {item.title}
-                </button>
-              )
-          )
-        )}
+        <button
+          onClick={onToggle}
+          className="flex gap-x-2 items-center px-2 py-[2px] transition-all duration-200 hover:bg-gray-50 border rounded-md"
+        >
+          <firstSelectedItem.icon
+            size={16}
+            color={firstSelectedItem.color}
+            {...(firstSelectedItem.color && { fill: firstSelectedItem.color })}
+          />
+          {firstSelectedItem.title}
+          {selectedCount > 1 && ` + ${selectedCount - 1}`}
+        </button>
       </div>
 
       <div
@@ -101,25 +77,22 @@ export const CreateIssueTags: React.FC<Props> = ({
           isOpen ? "opacity-100" : "opacity-0"
         }`}
       >
-        {items.map(
-          (item, index) =>
-            index > 0 && (
-              <button
-                key={index}
-                className={`flex whitespace-nowrap items-center gap-x-2 px-1 py-[2px] rounded-md transition-all duration-200 hover:bg-slate-100 ${
-                  selectedItems.includes(index) && "bg-slate-100"
-                }`}
-                onClick={() => handleItemClick(index)}
-              >
-                <item.icon
-                  {...(item.color && { fill: item.color })}
-                  color={item.color}
-                  size={item.color ? 12 : 16}
-                />{" "}
-                {item.title}
-              </button>
-            )
-        )}
+        {items.map((item, index) => (
+          <button
+            key={index}
+            className={`flex whitespace-nowrap items-center gap-x-2 px-1 py-[2px] rounded-md transition-all duration-200 hover:bg-slate-100 ${
+              selectedItems.includes(index) ? "bg-slate-100" : ""
+            }`}
+            onClick={() => handleItemClick(index)}
+          >
+            <item.icon
+              {...(item.color && { fill: item.color })}
+              color={item.color}
+              size={item.color ? 12 : 16}
+            />
+            {item.title}
+          </button>
+        ))}
       </div>
     </div>
   );
