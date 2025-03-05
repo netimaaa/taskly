@@ -7,4 +7,19 @@ export interface TaskType {
   project: number;
   tags: number[];
   createdAt: string;
+  comments?: Comment[];
+}
+export interface Comment {
+  id: number;
+  author: number;
+  content: string;
+  reply: number;
+}
+
+export interface User {
+  id: number;
+  mail: string;
+  name: string;
+  avatar: string;
+  tasks: TaskType[];
 }

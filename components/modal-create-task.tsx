@@ -63,7 +63,7 @@ export const ModalCreateTask: React.FC<Props> = ({ className, onClose }) => {
         placeholder="Description..."
         className="resize-none px-6 w-full mt-4 text-lg text-zinc-600 h-[180px] outline-none"
       />
-      <div className="flex px-6 gap-x-3 items-center mt-3">
+      <div className="flex px-6 gap-x-3 items-center my-3">
         <CreateIssueTags
           key={`progress-${resetKey}`}
           items={Progress}

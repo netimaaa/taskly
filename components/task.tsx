@@ -1,5 +1,5 @@
 import { Circle, Book, WifiHigh } from "lucide-react";
-import React, { useState } from "react";
+import React, { CSSProperties, useState } from "react";
 import { TaskType } from "../types/type";
 import { Priority, Progress, Project, Tags } from "./mockData";
 import { Tag } from "./tag";
@@ -32,7 +32,12 @@ export const Task: React.FC<Props> = ({ className, item }) => {
     setOpen(false);
   };
   return (
-    <div className="px-4 cursor-default border-b h-[35px] flex justify-between gap-x-4 items-center text-sm font-medium group transition-all duration-500 hover:bg-gray-50">
+    <div
+      className={
+        `px-4 animate-fade-in cursor-default border-b h-[35px] flex justify-between gap-x-4 items-center text-sm font-medium group transition-all duration-500 hover:bg-gray-50 ` +
+        className
+      }
+    >
       <div className="flex text-zinc-600 transition-all duration-200 group-hover:text-zinc-800 items-center gap-x-4">
         <ProgressDropbar
           onChange={handleProgressChange}
@@ -43,7 +48,7 @@ export const Task: React.FC<Props> = ({ className, item }) => {
             <button>{item.title}</button>
           </Modal.Trigger>
           <Modal.Content className="pt-8 pb-3 h-full">
-            <ModalInfoTask item={item} />
+            <ModalInfoTask onClose={handleClose} item={item} />
           </Modal.Content>
         </Modal>
       </div>

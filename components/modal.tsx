@@ -48,7 +48,7 @@ export const Modal: ModalComponent = ({
               >
                 <div
                   onClick={(e) => e.stopPropagation()}
-                  className={`w-[800px] h-[400px] rounded-md bg-white transition-all duration-100 ${className} ${
+                  className={`w-[800px] min-h-[400px] h-fit rounded-md bg-white transition-all duration-100 ${className} ${
                     isOpen ? "opacity-100" : "opacity-0"
                   }`}
                 >

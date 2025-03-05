@@ -1,3 +1,5 @@
+"use client";
+import { useTaskStore } from "@/states/taskStorage";
 import {
   Book,
   Circle,
@@ -11,7 +13,6 @@ import {
   WifiHigh,
   WifiLow
 } from "lucide-react";
-
 export const Progress = [
   { icon: CircleDashed, title: "Progress" },
   { icon: Circle, title: "To do" },
@@ -34,4 +35,19 @@ export const Tags = [
   { icon: Circle, color: "#3b82f6", title: "Improvement" },
   { icon: Circle, color: "#ef4444", title: "Bug" },
   { icon: Circle, color: "#22c55e", title: "Feature" }
+];
+const tasks = useTaskStore.getState().tasks;
+export const Users = [
+  {
+    id: 1800,
+    name: "netimaaa",
+    avatar: "",
+    tasks: tasks
+  },
+  {
+    id: 1801,
+    name: "netimaaa1",
+    avatar: "",
+    tasks: tasks
+  }
 ];

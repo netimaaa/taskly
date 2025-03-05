@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Sidebar } from "@/components/sidebar";
-import { SidebarRight } from "@/components/sidebar-right";
 import { Modal } from "@/components/modal";
 
 const geistSans = JetBrains_Mono({
