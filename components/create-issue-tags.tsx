@@ -29,6 +29,12 @@ export const CreateIssueTags: React.FC<Props> = ({
 }) => {
   const [selectedItems, setSelectedItems] = useState<number[]>(initial);
 
+  useEffect(() => {
+    setSelectedItems((prev) =>
+      prev.join() === initial.join() ? prev : initial
+    );
+  }, [initial]);
+
   const handleItemClick = (index: number) => {
     setSelectedItems((prev) => {
       let newSelection;

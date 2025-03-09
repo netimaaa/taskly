@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { CreateIssueTags } from "./create-issue-tags";
 import { Priority, Progress, Project, Tags } from "./mockData";

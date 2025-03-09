@@ -1,20 +1,20 @@
 import { Circle, Book, WifiHigh } from "lucide-react";
-import React, { CSSProperties, useState } from "react";
+import React, { CSSProperties, useState, useEffect } from "react";
 import { TaskType } from "../types/type";
 import { Priority, Progress, Project, Tags } from "./mockData";
 import { Tag } from "./tag";
 import { ProgressDropbar } from "./progress-dropbar";
 import { useTaskStore } from "@/states/taskStorage";
 import { Modal } from "./modal";
-import { ModalCreateTask } from "./modal-create-task";
 import { ModalInfoTask } from "./modal-info-task";
 
 interface Props {
   className?: string;
   item: TaskType;
+  onOpenTask?: (taskId: number) => void;
 }
 
-export const Task: React.FC<Props> = ({ className, item }) => {
+export const Task: React.FC<Props> = ({ className, item, onOpenTask }) => {
   const { updateTaskProgress } = useTaskStore();
   const formatDate = (isoDate: string): string => {
     const date = new Date(isoDate);
@@ -23,32 +23,51 @@ export const Task: React.FC<Props> = ({ className, item }) => {
       day: "2-digit"
     }).format(date);
   };
+
+  const [currentProgress, setCurrentProgress] = useState(item.progress);
+
+  useEffect(() => {
+    setCurrentProgress(item.progress);
+    console.log(2);
+  }, [item.progress]);
+
   const handleProgressChange = (newProgress: number) => {
     updateTaskProgress(item.id, newProgress);
+    setCurrentProgress(newProgress);
   };
+
   const [isOpen, setOpen] = useState<boolean>(false);
 
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleTaskClick = () => {
+    if (onOpenTask) {
+      onOpenTask(item.id);
+    } else {
+      setOpen(true);
+    }
+  };
+
   return (
     <div
       className={
-        `px-4 animate-fade-in cursor-default border-b h-[35px] flex justify-between gap-x-4 items-center text-sm font-medium group transition-all duration-500 hover:bg-gray-50 ` +
+        `px-4 cursor-default border-b h-[35px] flex justify-between gap-x-4 items-center text-sm font-medium group transition-all duration-500 hover:bg-gray-50 ` +
         className
       }
     >
       <div className="flex text-zinc-600 transition-all duration-200 group-hover:text-zinc-800 items-center gap-x-4">
         <ProgressDropbar
           onChange={handleProgressChange}
-          iconIndex={item.progress}
+          iconIndex={currentProgress}
         />{" "}
         <Modal isOpen={isOpen} setOpen={setOpen}>
           <Modal.Trigger>
-            <button>{item.title}</button>
+            <button onClick={handleTaskClick}>{item.title}</button>{" "}
           </Modal.Trigger>
           <Modal.Content className="pt-8 pb-3 h-full">
-            <ModalInfoTask onClose={handleClose} item={item} />
+            <ModalInfoTask onClose={handleClose} itemId={item.id} />
           </Modal.Content>
         </Modal>
       </div>

@@ -41,15 +41,15 @@ export const Modal: ModalComponent = ({
                 className={
                   `absolute top-0 left-0 right-0 bottom-0 transition-all duration-500 ${
                     isOpen
-                      ? "opacity-100 bg-black/20 z-20"
-                      : "opacity-0 bg-transparent -z-10"
+                      ? "opacity-100 bg-black/20 z-20 visible"
+                      : "opacity-0 bg-transparent -z-10 invisible"
                   } flex items-center justify-center ` + className
                 }
               >
                 <div
                   onClick={(e) => e.stopPropagation()}
-                  className={`w-[800px] min-h-[400px] h-fit rounded-md bg-white transition-all duration-100 ${className} ${
-                    isOpen ? "opacity-100" : "opacity-0"
+                  className={`w-[800px] h-fit rounded-md bg-white transition-all duration-300 ${
+                    isOpen ? "opacity-100 visible" : "opacity-0 invisible"
                   }`}
                 >
                   {React.cloneElement(child)}

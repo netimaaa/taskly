@@ -68,10 +68,9 @@ export default function Home() {
       </div>
       <div
         style={{
-          width: isOpen ? "300px" : "0",
-          transform: isOpen ? "translateX(0)" : "translateX(20px)"
+          width: isOpen ? "300px" : "0"
         }}
-        className="transition-all duration-200 border-l"
+        className={`transition-all duration-200 ${isOpen && "border-l"}`}
       ></div>
     </div>
   );
