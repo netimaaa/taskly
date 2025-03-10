@@ -12,9 +12,15 @@ interface Props {
   className?: string;
   item: TaskType;
   onOpenTask?: (taskId: number) => void;
+  inSearch?: boolean;
 }
 
-export const Task: React.FC<Props> = ({ className, item, onOpenTask }) => {
+export const Task: React.FC<Props> = ({
+  className,
+  item,
+  onOpenTask,
+  inSearch
+}) => {
   const { updateTaskProgress } = useTaskStore();
   const formatDate = (isoDate: string): string => {
     const date = new Date(isoDate);
@@ -61,12 +67,13 @@ export const Task: React.FC<Props> = ({ className, item, onOpenTask }) => {
         <ProgressDropbar
           onChange={handleProgressChange}
           iconIndex={currentProgress}
+          inSearch={inSearch}
         />{" "}
         <Modal isOpen={isOpen} setOpen={setOpen}>
           <Modal.Trigger>
             <button onClick={handleTaskClick}>{item.title}</button>{" "}
           </Modal.Trigger>
-          <Modal.Content className="pt-8 pb-3 h-full">
+          <Modal.Content className="">
             <ModalInfoTask onClose={handleClose} itemId={item.id} />
           </Modal.Content>
         </Modal>

@@ -8,7 +8,7 @@ import {
   SquareCheck,
   SquarePen
 } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Modal } from "./modal";
 import { ModalCreateTask } from "./modal-create-task";
@@ -30,7 +30,6 @@ export const SidebarCategories: React.FC<Props> = ({ className }) => {
   const [isSearchOpen, setSearchOpen] = useState<boolean>(false);
   const [isTaskOpen, setTaskOpen] = useState<boolean>(false);
   const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null);
-
   const [searchTitle, setSearchTitle] = useState<string>("");
 
   const handleCloseSearch = () => {
@@ -40,12 +39,31 @@ export const SidebarCategories: React.FC<Props> = ({ className }) => {
   const handleOpenTask = (taskId: number) => {
     setSelectedTaskId(taskId);
     setTaskOpen(true);
+    setTimeout(() => {
+      setSearchOpen(false);
+      setSearchTitle("");
+    }, 800);
+  };
+
+  const handleCloseTask = () => {
+    setTaskOpen(false);
+    setSelectedTaskId(null);
     setSearchOpen(false);
-    setSearchTitle("");
   };
 
   return (
     <ul className={`flex flex-col gap-y-[6px] mx-3 flex-1 ` + className}>
+      <Modal isOpen={isTaskOpen} setOpen={handleCloseTask}>
+        <Modal.Content
+          className={`pt-8 pb-3 h-full transition-all duration-300 ${
+            isTaskOpen ? "visible" : "invisible"
+          }`}
+        >
+          {selectedTaskId && (
+            <ModalInfoTask onClose={handleCloseTask} itemId={selectedTaskId} />
+          )}
+        </Modal.Content>
+      </Modal>
       {categories.map((item, index) =>
         index !== 0 ? (
           <li key={index}>
@@ -63,7 +81,7 @@ export const SidebarCategories: React.FC<Props> = ({ className }) => {
           </li>
         ) : (
           <li key={index}>
-            <Modal isOpen={isSearchOpen} setOpen={setSearchOpen}>
+            <Modal isOpen={isSearchOpen && !isTaskOpen} setOpen={setSearchOpen}>
               <Modal.Trigger>
                 <button
                   onClick={() => setSearchOpen(true)}
@@ -78,7 +96,7 @@ export const SidebarCategories: React.FC<Props> = ({ className }) => {
                 </button>
               </Modal.Trigger>
 
-              <Modal.Content className="h-full">
+              <Modal.Content>
                 <ModalSearchTask
                   onClose={handleCloseSearch}
                   onOpenTask={handleOpenTask}
@@ -98,17 +116,6 @@ export const SidebarCategories: React.FC<Props> = ({ className }) => {
           Settings
         </span>
       </button>
-
-      <Modal isOpen={isTaskOpen} setOpen={setTaskOpen}>
-        <Modal.Content className="pt-8 pb-3 h-full">
-          {selectedTaskId && (
-            <ModalInfoTask
-              onClose={() => setTaskOpen(false)}
-              itemId={selectedTaskId}
-            />
-          )}
-        </Modal.Content>
-      </Modal>
     </ul>
   );
 };

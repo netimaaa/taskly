@@ -5,15 +5,18 @@ interface Props {
   className?: string;
   iconIndex: number;
   onChange: (newProgress: number) => void;
+  inSearch?: boolean;
 }
 
 export const ProgressDropbar: React.FC<Props> = ({
   className,
   iconIndex,
-  onChange
+  onChange,
+  inSearch
 }) => {
   const ProgressIcon = Progress[iconIndex].icon;
   const [isOpen, setOpen] = useState<boolean>(false);
+  const [prList, setPrList] = useState([]);
 
   function handleOpenMenu() {
     setOpen(!isOpen);
@@ -26,6 +29,7 @@ export const ProgressDropbar: React.FC<Props> = ({
   return (
     <div className="relative">
       <button
+        disabled={inSearch}
         onClick={handleOpenMenu}
         className={"flex items-center justify-center"}
       >

@@ -46,7 +46,7 @@ export const SidebarAccount: React.FC<Props> = ({ className }) => {
           </button>
         </Modal.Trigger>
 
-        <Modal.Content className="pt-8 pb-3 h-full">
+        <Modal.Content>
           <ModalCreateTask onClose={handleClose} />
         </Modal.Content>
       </Modal>

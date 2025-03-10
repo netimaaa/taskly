@@ -14,28 +14,31 @@ import {
   WifiLow
 } from "lucide-react";
 export const Progress = [
-  { icon: CircleDashed, title: "Progress" },
-  { icon: Circle, title: "To do" },
-  { icon: CircleDot, title: "In progress" },
-  { icon: CircleCheckBig, title: "Finished" }
+  { id: 0, icon: CircleDashed, title: "Progress" },
+  { id: 1, icon: Circle, title: "To do" },
+  { id: 2, icon: CircleDot, title: "In progress" },
+  { id: 3, icon: CircleCheckBig, title: "Finished" }
 ];
+
 export const Priority = [
-  { icon: WifiLow, title: "Priority" },
-  { icon: WifiLow, title: "Low" },
-  { icon: WifiHigh, title: "Medium" },
-  { icon: Wifi, title: "High" }
+  { id: 4, icon: WifiLow, title: "Priority" },
+  { id: 5, icon: WifiLow, title: "Low" },
+  { id: 6, icon: WifiHigh, title: "Medium" },
+  { id: 7, icon: Wifi, title: "High" }
+];
+
+export const Tags = [
+  { id: 8, icon: Tag, title: "Tags" },
+  { id: 9, icon: Circle, color: "#3b82f6", title: "Improvement" },
+  { id: 10, icon: Circle, color: "#ef4444", title: "Bug" },
+  { id: 11, icon: Circle, color: "#22c55e", title: "Feature" }
 ];
 export const Project = [
   { icon: LibraryBig, title: "Project" },
   { icon: Book, title: "Personal" },
   { icon: FolderGit, title: "Altera" }
 ];
-export const Tags = [
-  { icon: Tag, title: "Tags" },
-  { icon: Circle, color: "#3b82f6", title: "Improvement" },
-  { icon: Circle, color: "#ef4444", title: "Bug" },
-  { icon: Circle, color: "#22c55e", title: "Feature" }
-];
+
 const tasks = useTaskStore.getState().tasks;
 export const Users = [
   {

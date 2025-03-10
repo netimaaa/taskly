@@ -1,5 +1,5 @@
 import { useTaskStore } from "@/states/taskStorage";
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { Task } from "./task";
 import { Modal } from "./modal";
 import { ModalInfoTask } from "./modal-info-task";
@@ -54,6 +54,7 @@ export const ModalSearchTask: React.FC<Props> = ({
           <Task
             item={item}
             key={item.id}
+            inSearch={true}
             className="border-none bg-white rounded-md"
             onOpenTask={onOpenTask}
           />

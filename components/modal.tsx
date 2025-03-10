@@ -39,17 +39,17 @@ export const Modal: ModalComponent = ({
                 ref={modalRef}
                 onClick={handleClose}
                 className={
-                  `absolute top-0 left-0 right-0 bottom-0 transition-all duration-500 ${
+                  `fixed inset-0 flex items-center justify-center transition-all duration-300 ${
                     isOpen
                       ? "opacity-100 bg-black/20 z-20 visible"
                       : "opacity-0 bg-transparent -z-10 invisible"
-                  } flex items-center justify-center ` + className
+                  } ` + className
                 }
               >
                 <div
                   onClick={(e) => e.stopPropagation()}
                   className={`w-[800px] h-fit rounded-md bg-white transition-all duration-300 ${
-                    isOpen ? "opacity-100 visible" : "opacity-0 invisible"
+                    isOpen ? "translate-y-0" : "translate-y-[-5px]"
                   }`}
                 >
                   {React.cloneElement(child)}
@@ -68,6 +68,6 @@ Modal.Trigger = ({ children, onClick }) => {
   return <div onClick={onClick}>{children}</div>;
 };
 
-Modal.Content = ({ children, className }) => {
-  return <div className={className}>{children}</div>;
+Modal.Content = ({ children }) => {
+  return <>{children}</>;
 };

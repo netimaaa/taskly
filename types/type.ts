@@ -23,3 +23,9 @@ export interface User {
   avatar: string;
   tasks: TaskType[];
 }
+export interface FilterItem {
+  icon: React.ElementType;
+  title: string;
+  color?: string;
+  id: number;
+}
